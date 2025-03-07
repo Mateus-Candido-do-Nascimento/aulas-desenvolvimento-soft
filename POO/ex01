@@ -1,0 +1,29 @@
+class Carro:
+    def __init__(self, marca, modelo, ano, preco):
+        self.marca = marca
+        self.modelo = modelo
+        self.ano = ano
+        self.__preco = preco
+    
+    def print_info(self):
+        print(f"Carro: {self.marca} {self.modelo}, Ano: {self.ano}, Preço: R$ {self.__preco:.2f}")
+    
+    def get_preco(self):
+        return self.__preco
+    
+    def set_preco(self, novo_preco):
+        if novo_preco > 0:
+            self.__preco = novo_preco
+        else:
+            print("Preço inválido!")
+
+carro1 = Carro("Toyota", "Corolla", 2022, 120000)
+carro2 = Carro("Honda", "Civic", 2023, 140000)
+
+carro1.print_info()
+carro2.print_info()
+
+carro1.set_preco(125000)
+carro1.get_preço()
+carro1.print_info()
+

@@ -1,0 +1,96 @@
+class Livro:
+    def __init__(self, titulo, autor, isbn):
+        self.titulo = titulo
+        self.autor = autor
+        self.isbn = isbn
+        self.disponivel = True
+
+    def emprestar(self):
+        if self.disponivel:
+            self.disponivel = False
+            return True
+        return False
+
+    def devolver(self):
+        self.disponivel = True
+
+    def print_info(self):
+        status = "Disponível" if self.disponivel else "Emprestado"
+        print(f"Título: {self.titulo}, Autor: {self.autor}, ISBN: {self.isbn}, Status: {status}")
+
+
+class Membro:
+    def __init__(self, nome, id_membro):
+        self.nome = nome
+        self.id_membro = id_membro
+        self.emprestimos = []
+
+    def emprestar_livro(self, livro):
+        if livro.emprestar():
+            self.emprestimos.append(livro)
+            return True
+        return False
+
+    def devolver_livro(self, livro):
+        if livro in self.emprestimos:
+            livro.devolver()
+            self.emprestimos.remove(livro)
+            return True
+        return False
+
+    def print_info(self):
+        print(f"Nome: {self.nome}, ID: {self.id_membro}")
+        print("Empréstimos:")
+        for livro in self.emprestimos:
+            livro.print_info()
+
+
+class Biblioteca:
+    def __init__(self):
+        self.livros = []
+        self.membros = []
+
+    def cadastrar_livro(self, livro):
+        self.livros.append(livro)
+
+    def cadastrar_membro(self, membro):
+        self.membros.append(membro)
+
+    def registrar_emprestimo(self, id_membro, isbn):
+        membro = next((m for m in self.membros if m.id_membro == id_membro), None)
+        livro = next((l for l in self.livros if l.isbn == isbn), None)
+        if membro and livro:
+            return membro.emprestar_livro(livro)
+        return False
+
+    def registrar_devolucao(self, id_membro, isbn):
+        membro = next((m for m in self.membros if m.id_membro == id_membro), None)
+        livro = next((l for l in self.livros if l.isbn == isbn), None)
+        if membro and livro:
+            return membro.devolver_livro(livro)
+        return False
+
+    def listar_emprestimos(self):
+        for membro in self.membros:
+            membro.print_info()
+
+
+livro1 = Livro("1984", "George Orwell", "1234567890")
+livro2 = Livro("O Senhor dos Anéis", "J.R.R. Tolkien", "0987654321")
+
+membro1 = Membro("Alice", 1)
+membro2 = Membro("Bob", 2)
+
+biblioteca = Biblioteca()
+biblioteca.cadastrar_livro(livro1)
+biblioteca.cadastrar_livro(livro2)
+biblioteca.cadastrar_membro(membro1)
+biblioteca.cadastrar_membro(membro2)
+
+biblioteca.registrar_emprestimo(1, "1234567890")
+biblioteca.registrar_emprestimo(2, "0987654321")
+
+biblioteca.listar_emprestimos()
+
+biblioteca.registrar_devolucao(1, "1234567890")
+biblioteca.listar_emprestimos()

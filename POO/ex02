@@ -1,0 +1,78 @@
+class Pessoa:
+    def __init__(self, nome, idade, cpf):
+        self.nome = nome
+        self.idade = idade
+        self.__cpf = cpf
+
+    def get_cpf(self):
+        return self.__cpf
+
+    def print_info(self):
+        print(f"{self.nome}, {self.idade}, {self.__cpf}")
+
+
+class Medico(Pessoa):
+    def __init__(self, nome, idade, cpf, crm, especialidade):
+        super().__init__(nome, idade, cpf)
+        self.crm = crm
+        self.especialidade = especialidade
+
+    def print_info(self):
+        super().print_info()
+        print(f"{self.crm}, {self.especialidade}")
+
+
+class Paciente(Pessoa):
+    def __init__(self, nome, idade, cpf, historico_medico):
+        super().__init__(nome, idade, cpf)
+        self.historico_medico = historico_medico
+
+    def print_info(self):
+        super().print_info()
+        print(f"{self.historico_medico}")
+
+
+class Consulta:
+    def __init__(self, medico, paciente, data, hora):
+        self.medico = medico
+        self.paciente = paciente
+        self.data = data
+        self.hora = hora
+
+    def print_info(self):
+        print(f"{self.data} {self.hora}")
+        self.medico.print_info()
+        self.paciente.print_info()
+
+
+class Clinica:
+    def __init__(self):
+        self.medicos = []
+        self.pacientes = []
+        self.consultas = []
+
+    def cadastrar_medico(self, medico):
+        self.medicos.append(medico)
+
+    def cadastrar_paciente(self, paciente):
+        self.pacientes.append(paciente)
+
+    def agendar_consulta(self, consulta):
+        self.consultas.append(consulta)
+
+    def listar_consultas(self):
+        for consulta in self.consultas:
+            consulta.print_info()
+
+
+medico1 = Medico("Dr. João", 45, "123.456.789-00", "CRM12345", "Cardiologista")
+paciente1 = Paciente("Maria Silva", 30, "987.654.321-00", "Hipertensão")
+
+clinica = Clinica()
+clinica.cadastrar_medico(medico1)
+clinica.cadastrar_paciente(paciente1)
+
+consulta1 = Consulta(medico1, paciente1, "10/03/2025", "14:30")
+clinica.agendar_consulta(consulta1)
+
+clinica.listar_consultas()

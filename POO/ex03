@@ -1,0 +1,66 @@
+class Funcionario:
+    def __init__(self, nome, idade, salario_base):
+        self.nome = nome
+        self.idade = idade
+        self.salario_base = salario_base
+
+    def calcular_salario(self):
+        return self.salario_base
+
+    def print_info(self):
+        print(f"Nome: {self.nome}, Idade: {self.idade}, Salário Base: R$ {self.salario_base:.2f}")
+
+
+class Administrativo(Funcionario):
+    def __init__(self, nome, idade, salario_base, bonus):
+        super().__init__(nome, idade, salario_base)
+        self.bonus = bonus
+
+    def calcular_salario(self):
+        return self.salario_base + self.bonus
+
+    def print_info(self):
+        super().print_info()
+        print(f"Bônus: R$ {self.bonus:.2f}")
+
+
+class Professor(Funcionario):
+    def __init__(self, nome, idade, salario_base, horas_aula, valor_hora):
+        super().__init__(nome, idade, salario_base)
+        self.horas_aula = horas_aula
+        self.valor_hora = valor_hora
+
+    def calcular_salario(self):
+        return self.salario_base + (self.horas_aula * self.valor_hora)
+
+    def print_info(self):
+        super().print_info()
+        print(f"Horas Aula: {self.horas_aula}, Valor Hora: R$ {self.valor_hora:.2f}")
+
+
+class Tecnico(Funcionario):
+    def __init__(self, nome, idade, salario_base, adicional_insalubridade):
+        super().__init__(nome, idade, salario_base)
+        self.adicional_insalubridade = adicional_insalubridade
+
+    def calcular_salario(self):
+        return self.salario_base + self.adicional_insalubridade
+
+    def print_info(self):
+        super().print_info()
+        print(f"Adicional Insalubridade: R$ {self.adicional_insalubridade:.2f}")
+
+
+
+adm = Administrativo("Carlos", 40, 3000, 500)
+prof = Professor("Ana", 35, 2500, 20, 50)
+tec = Tecnico("João", 28, 2000, 300)
+
+adm.print_info()
+print(f"Salário Total: R$ {adm.calcular_salario():.2f}\n")
+
+prof.print_info()
+print(f"Salário Total: R$ {prof.calcular_salario():.2f}\n")
+
+tec.print_info()
+print(f"Salário Total: R$ {tec.calcular_salario():.2f}\n")
