@@ -1,0 +1,11 @@
+{
+    "clientes": {
+        "1": {
+            "nome": "mateus",
+            "cpf": "333445566",
+            "email": "matt"
+        }
+    },
+    "produtos": {},
+    "pedidos": {}
+}
